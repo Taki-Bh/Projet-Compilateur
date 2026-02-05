@@ -3,7 +3,7 @@ package compilateurnewversion;
 import java.util.Stack;
 
 public class parsernew {
-
+    final public static int MAX_LEN=50;
     public String[] LRGS = {
             "D->ID dp Type PV D",
             "D->I",
@@ -204,7 +204,7 @@ public class parsernew {
 
         analyse.push("0");
 
-        System.out.println("********pile     	    Entrée            Action***********");
+        System.out.println("********                     pile     	                                      Entrée                                    Action***********");
         this.AfficherSLRnew(tt);
 
         while (index < tt.length)
@@ -263,7 +263,7 @@ public class parsernew {
             }
             // acceptation
             else if (Action(s, tt[index]) == "ACC") {
-                System.out.println("analyze SLR successfully");
+                System.out.println("analyze SLR a termine avec success");
                 break;
             }
 
@@ -306,12 +306,18 @@ public class parsernew {
 
         strInput = "";
         for (int i = index; i < tt.length; i++)
-            strInput = strInput + tt[i];
-
-        System.out.printf("%s", analyse + ss1);
-        System.out.printf("%s", strInput + ss);
+            strInput =strInput +"  "+ tt[i];
+        strInput=strInput.substring(0,Math.min(strInput.length(), MAX_LEN-2))+((strInput.length()<MAX_LEN-2)? "" : "..");
+        String analyseShow=analyse.toString();
+        analyseShow=((analyseShow.length()<MAX_LEN-2)? "" : "..")+analyseShow.substring(analyseShow.length()-Math.min(MAX_LEN-2, analyseShow.length()),analyseShow.length());
+       
+        analyseShow=analyseShow+ " ".repeat(Math.max(MAX_LEN-analyseShow.length(),0));
+        strInput=strInput + " ".repeat(Math.max(MAX_LEN-strInput.length(),0));
+        System.out.printf("%s", analyseShow+" ||" );
+        System.out.printf("%s", strInput+"|| " );
         System.out.printf("%s", action);
         System.out.println();
+        System.out.println(" ".repeat(MAX_LEN)+" ||"+" ".repeat(MAX_LEN)+"||");
     }
 
     public void ouput() {
